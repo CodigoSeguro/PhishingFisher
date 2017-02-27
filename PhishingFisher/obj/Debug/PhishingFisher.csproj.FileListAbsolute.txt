@@ -1,0 +1,18 @@
+c:\users\oscar\documents\visual studio 2015\Projects\PhishingFisher\PhishingFisher\bin\Debug\PhishingFisher.exe.config
+c:\users\oscar\documents\visual studio 2015\Projects\PhishingFisher\PhishingFisher\obj\Debug\PhishingFisher.csprojResolveAssemblyReference.cache
+c:\users\oscar\documents\visual studio 2015\Projects\PhishingFisher\PhishingFisher\obj\Debug\PhishingFisher.Form1.resources
+c:\users\oscar\documents\visual studio 2015\Projects\PhishingFisher\PhishingFisher\obj\Debug\PhishingFisher.Properties.Resources.resources
+c:\users\oscar\documents\visual studio 2015\Projects\PhishingFisher\PhishingFisher\obj\Debug\PhishingFisher.csproj.GenerateResource.Cache
+c:\users\oscar\documents\visual studio 2015\Projects\PhishingFisher\PhishingFisher\bin\Debug\PhishingFisher.exe
+c:\users\oscar\documents\visual studio 2015\Projects\PhishingFisher\PhishingFisher\bin\Debug\PhishingFisher.pdb
+c:\users\oscar\documents\visual studio 2015\Projects\PhishingFisher\PhishingFisher\obj\Debug\PhishingFisher.exe
+c:\users\oscar\documents\visual studio 2015\Projects\PhishingFisher\PhishingFisher\obj\Debug\PhishingFisher.pdb
+C:\Users\Oscar\Source\Repos\PhishingFisher\PhishingFisher\bin\Debug\PhishingFisher.exe.config
+C:\Users\Oscar\Source\Repos\PhishingFisher\PhishingFisher\obj\Debug\PhishingFisher.exe
+C:\Users\Oscar\Source\Repos\PhishingFisher\PhishingFisher\obj\Debug\PhishingFisher.pdb
+C:\Users\Oscar\Source\Repos\PhishingFisher\PhishingFisher\bin\Debug\PhishingFisher.exe
+C:\Users\Oscar\Source\Repos\PhishingFisher\PhishingFisher\bin\Debug\PhishingFisher.pdb
+C:\Users\Oscar\Source\Repos\PhishingFisher\PhishingFisher\obj\Debug\PhishingFisher.csprojResolveAssemblyReference.cache
+C:\Users\Oscar\Source\Repos\PhishingFisher\PhishingFisher\obj\Debug\PhishingFisher.PhishingFisher.resources
+C:\Users\Oscar\Source\Repos\PhishingFisher\PhishingFisher\obj\Debug\PhishingFisher.Properties.Resources.resources
+C:\Users\Oscar\Source\Repos\PhishingFisher\PhishingFisher\obj\Debug\PhishingFisher.csproj.GenerateResource.Cache
