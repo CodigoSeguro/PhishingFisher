@@ -16,20 +16,19 @@ if ($conn->connect_error) {
 
 
 $url = isset($_GET['site']) ? $_GET['site'] : null;
-echo $url;
+preg_match('/^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/', $url, $matches);
+$url = $matches[0];
 
-//$sql = "SELECT DANGER FROM all_sites WHERE URL=" . $url . " LIMIT 1";
-$sql = "SELECT * FROM all_sites";
-$result = $conn->query($sql);
-echo $result;
+$sql = "SELECT DANGER FROM all_sites WHERE URL LIKE '%" . $url . "%' LIMIT 1";
+$result = $conn->query($sql);   
 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo "id: " . $row["id"]."<br>";
+        echo $row["DANGER"];
     }
 } else {
-    echo "0 results";   
+    echo "3";   
 }
 
 $conn->close();

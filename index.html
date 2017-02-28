@@ -110,7 +110,7 @@
             .approval{ background-color: #64FF56; }
             .undetermined{ background-color: #FFB656; }
             .main div{ width: 100%; }
-            .searchbar form{
+            .searchbar{
                 display: flex;
             }
             input[type=text]{
@@ -167,29 +167,37 @@
             <h1>Don't enough data</h1>
             <p>This website might be new for us or we didn't have time to check it yet. If you want you can <a href="">login</a> and suggest this website for review.</p>
         </div>
+        <footer>
+            <div>Icons made by <a href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>    
+        </footer>
         
         
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script>
             
+            $("#siteSearch").keyup(function(event){
+                if(event.keyCode == 13){
+                    checkUrl();
+                }
+            });
+            
             function checkUrl(){
                 
                 $('.results').css('display', 'none');
                 $('.loading').css('display', 'block');
                 
-                    var site = document.getElementById('siteSearch').value;
+                var site = document.getElementById('siteSearch').value;
                 console.log(site);
                 
                 request = $.ajax({
-                    url: "/check_site.php",
-                    type: "post",
-                    data: {url: site}
+                    url: "/check_site.php?site=" + site,
+                    type: "post"//,
+                    //data: {url: site}
                 });
                 
                 request.done(function (response, textStatus, jqXHR){
-                    // Log a message to the console
-                    console.log("Hooray, it worked!");
+                    displayResult(response);
                 });
 
                 // Callback handler that will be called on failure
@@ -201,32 +209,12 @@
                     );
                 });
                 
-                             /* 
-                $.ajax({ url: '/check_site.php',
-                        data: {url: 'paypal.com'},
-                        type: 'get',
-                        success: function(data){
-                            console.log('success');
-                            console.log(data);
-                            displayResult(data);
-                        },
-                        error: function(error){
-                            console.log(error);
-                        } 
-                });
-                */
-                /**
-                request = $.ajax({
-                    url: "/check_site.php",
-                    type: "post",
-                    data: serializedData
-                });
-                **/
+                    
             }
             
-            function displayResult(data){
+            function displayResult(result){
+                console.log(result);
                 $('.results').css('display', 'none');
-                $('.loading').css('display', 'block');
                 if(result == 1){
                     $('.warning').css('display', 'block');
                 }else if(result == 2){
