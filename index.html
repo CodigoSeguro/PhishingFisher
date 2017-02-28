@@ -4,6 +4,8 @@
         <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
         <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
         <link href="http://meyerweb.com/eric/tools/css/reset/reset.css" rel="stylesheet">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
         <style>
             body{
                 font-family: 'Roboto Condensed', sans-serif;
@@ -12,14 +14,20 @@
             }
             h1{ font-size: 30px; font-weight: bolder; margin-bottom: 15px; }
             p{ margin-bottom: 15px; font-size: 16px; }
+            #mustInclude{ color: #666; font-style: italic; };
             a{ font-weight: bold; }
             .main,
+            footer,
             .results{
                 width: 100%;
                 max-width: 600px;
                 margin: 30px auto;
                 background-color: white;
                 padding: 30px;
+            }
+            footer{
+                font-size: 14px;
+                color: #666;
             }
             .results{ display: none; }
             .results.loading{ padding: 0px 30px; max-height: 50px; overflow: hidden; }
@@ -147,6 +155,7 @@
         <div class="main">
             <h1>Phishing Fisher</h1>
             <p>Please introduce a website below to check if it is secure or it is a phishing/fake website</p>
+            <p id="mustInclude">(Please include a valid url starting with 'http' or 'https')</p>
             <div class="searchbar">
                     <input id="siteSearch" type="text" placeholder="Input the website you want to check" >
                     <input type="submit" value="Scan" onclick="checkUrl()">
@@ -165,9 +174,10 @@
         </div>
         <div class="results undetermined">
             <h1>Don't enough data</h1>
-            <p>This website might be new for us or we didn't have time to check it yet. If you want you can <a href="">login</a> and suggest this website for review.</p>
+            <p>This website might be new for us or we didn't have time to check it yet. It has been submitted for a future review.</p>
         </div>
         <footer>
+            <div>Check our GitHub repository <a href="https://github.com/CodigoSeguro/PhishingFisher">here</a>.</div>
             <div>Icons made by <a href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>    
         </footer>
         
@@ -175,6 +185,9 @@
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script>
+            
+            var urlreg = /(([\w]+:)?\/\/)?(([\d\w]|%[a-fA-f\d]{2,2})+(:([\d\w]|%[a-fA-f\d]{2,2})+)?@)?([\d\w][-\d\w]{0,253}[\d\w]\.)+[\w]{2,63}(:[\d]+)?(\/([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)*(\?(&?([-+_~.\d\w]|%[a-fA-f\d]{2,2})=?)*)?(#([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)?/;
+            var httpreg = /^http/;
             
             $("#siteSearch").keyup(function(event){
                 if(event.keyCode == 13){
@@ -184,32 +197,36 @@
             
             function checkUrl(){
                 
-                $('.results').css('display', 'none');
-                $('.loading').css('display', 'block');
-                
                 var site = document.getElementById('siteSearch').value;
-                console.log(site);
                 
-                request = $.ajax({
-                    url: "/check_site.php?site=" + site,
-                    type: "post"//,
-                    //data: {url: site}
-                });
+                if(!httpreg.test(site) || !urlreg.test(site)){
+                    $('#mustInclude').css('color','#FF5656');
+                    $('#siteSearch').val('');
+                }else{
+                    $('#mustInclude').css('color','#666');
                 
-                request.done(function (response, textStatus, jqXHR){
-                    displayResult(response);
-                });
-
-                // Callback handler that will be called on failure
-                request.fail(function (jqXHR, textStatus, errorThrown){
-                    // Log the error to the console
-                    console.error(
-                        "The following error occurred: "+
-                        textStatus, errorThrown
-                    );
-                });
-                
+                    $('.results').css('display', 'none');
+                    $('.loading').css('display', 'block');
                     
+                    request = $.ajax({
+                        url: "/check_site.php?site=" + site,
+                        type: "post"
+                    });
+                    
+                    request.done(function (response, textStatus, jqXHR){
+                        displayResult(response);
+                    });
+
+                    // Callback handler that will be called on failure
+                    request.fail(function (jqXHR, textStatus, errorThrown){
+                        // Log the error to the console
+                        console.log(
+                            "The following error occurred: "+
+                            textStatus, errorThrown
+                        );
+                    });
+                
+                }
             }
             
             function displayResult(result){
