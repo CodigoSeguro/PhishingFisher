@@ -34,12 +34,11 @@
             this.rtbTests = new System.Windows.Forms.RichTextBox();
             this.btnCompareImg = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.WBScreenShot = new System.Windows.Forms.WebBrowser();
             this.SuspendLayout();
             // 
             // tbURL
             // 
-            this.tbURL.Location = new System.Drawing.Point(191, 41);
+            this.tbURL.Location = new System.Drawing.Point(55, 41);
             this.tbURL.Name = "tbURL";
             this.tbURL.Size = new System.Drawing.Size(362, 31);
             this.tbURL.TabIndex = 1;
@@ -47,7 +46,7 @@
             // 
             // btnFisherman
             // 
-            this.btnFisherman.Location = new System.Drawing.Point(578, 41);
+            this.btnFisherman.Location = new System.Drawing.Point(442, 41);
             this.btnFisherman.Name = "btnFisherman";
             this.btnFisherman.Size = new System.Drawing.Size(205, 40);
             this.btnFisherman.TabIndex = 2;
@@ -57,15 +56,15 @@
             // 
             // rtbTests
             // 
-            this.rtbTests.Location = new System.Drawing.Point(172, 134);
+            this.rtbTests.Location = new System.Drawing.Point(36, 134);
             this.rtbTests.Name = "rtbTests";
-            this.rtbTests.Size = new System.Drawing.Size(573, 124);
+            this.rtbTests.Size = new System.Drawing.Size(611, 124);
             this.rtbTests.TabIndex = 3;
             this.rtbTests.Text = "";
             // 
             // btnCompareImg
             // 
-            this.btnCompareImg.Location = new System.Drawing.Point(578, 88);
+            this.btnCompareImg.Location = new System.Drawing.Point(442, 88);
             this.btnCompareImg.Name = "btnCompareImg";
             this.btnCompareImg.Size = new System.Drawing.Size(205, 40);
             this.btnCompareImg.TabIndex = 4;
@@ -79,20 +78,11 @@
             this.timer1.Interval = 10000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // WBScreenShot
-            // 
-            this.WBScreenShot.Location = new System.Drawing.Point(25, 282);
-            this.WBScreenShot.MinimumSize = new System.Drawing.Size(20, 20);
-            this.WBScreenShot.Name = "WBScreenShot";
-            this.WBScreenShot.Size = new System.Drawing.Size(920, 471);
-            this.WBScreenShot.TabIndex = 5;
-            // 
             // PhishingFisher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1010, 791);
-            this.Controls.Add(this.WBScreenShot);
+            this.ClientSize = new System.Drawing.Size(689, 286);
             this.Controls.Add(this.btnCompareImg);
             this.Controls.Add(this.rtbTests);
             this.Controls.Add(this.btnFisherman);
@@ -110,7 +100,6 @@
         private System.Windows.Forms.RichTextBox rtbTests;
         private System.Windows.Forms.Button btnCompareImg;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.WebBrowser WBScreenShot;
     }
 }
 

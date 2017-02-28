@@ -18,7 +18,8 @@ namespace PhishingFisher.ThreadsCrawler
 {
    public class CrawlerBait
     {
-
+        public string PathVIPS = System.Configuration.ConfigurationManager.AppSettings.Get("PathVIPS");
+        public string PathAllSites = System.Configuration.ConfigurationManager.AppSettings.Get("PathAllSites");
         public string WebURL; // Direccón URL web 
         public string wasAGoodDay; // 0/1 
         public string XMLData; // Almacenamos codigo HTML
@@ -31,8 +32,6 @@ namespace PhishingFisher.ThreadsCrawler
         public string readWebDate(string wURL)
         {
             string sourceCode = "";
-          //  try
-           // {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(WebURL);
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 StreamReader sr = new StreamReader(response.GetResponseStream());
@@ -45,12 +44,14 @@ namespace PhishingFisher.ThreadsCrawler
            * Para despues comparar
            */
             var screenshotJob = ScreenshotJobBuilder.Create(WebURL)
-              .SetBrowserSize(800, 600)
-              .SetCaptureZone(CaptureZone.FullPage)
+              .SetBrowserSize(600, 300)
+              .SetCaptureZone(CaptureZone.VisibleScreen)
               .SetTrigger(new WindowLoadTrigger());
 
             System.Drawing.Image screenshot = screenshotJob.Freeze();
-            screenshot.Save("c:/imgWebPhishing/prueba.png", ImageFormat.Png);
+                Random rnd = new Random();
+                screenshot.Save("c:/imgWebPhishing/" + rnd.Next(1,100) +".png", ImageFormat.Png);
+                screenshot.Dispose();
             /*
              * Guardo los datos de certificado si los tiene
              */
@@ -61,19 +62,10 @@ namespace PhishingFisher.ThreadsCrawler
             SSL_KEY = cert2.GetPublicKeyString();
             }
             catch (Exception)
-            {
-
-              
-            }
-
-
+            {}  
             sr.Close();
                 response.Close();
                 return sourceCode;
-            //}
-           // catch
-           // { sourceCode = "ERROR"; }
-          //  return sourceCode;
         }
         /* 
          * Saco las imagenes colgadas en la web
@@ -114,8 +106,6 @@ namespace PhishingFisher.ThreadsCrawler
                                 SaveImage(rootURL+oneSpLink, "c:/imgWebPhishing/" + i + ext, returnImgFormat(ext));
 
                             }
-
-
                             //Console.Write();
                         }
                     }
@@ -163,7 +153,6 @@ namespace PhishingFisher.ThreadsCrawler
         {
             try
             {
-
                 WebClient client = new WebClient();
                 Stream stream = client.OpenRead(imageURL);
                 Bitmap bitmap; bitmap = new Bitmap(stream);
@@ -176,101 +165,68 @@ namespace PhishingFisher.ThreadsCrawler
                 client.Dispose();
             }
             catch (Exception)
-            {
-
-            }
-         
+            {}
         }
         /*
          * Compruebo si los pixels de las imagenes se parecen
          */
         public double similarityImg(string fname1, string fname2)
         {
-            // progressBar1.Visible = true;
             string img1_ref, img2_ref;
-            Bitmap img1 = new Bitmap(fname1);
-            Bitmap img2 = new Bitmap(fname2);
             double countPixDif = 0;
             double countPixSim = 0;
-            bool flag = true;
-            // progressBar1.Maximum = img1.Width;
-            if (img1.Width == img2.Width && img1.Height == img2.Height)
+            using (Bitmap img1 = new Bitmap(fname1))
             {
-                for (int i = 0; i < img1.Width; i++)
+                using (Bitmap img2 = new Bitmap(fname2))
                 {
-                    for (int j = 0; j < img1.Height; j++)
+                    bool flag = true;
+               
+                    if (img1.Width == img2.Width && img1.Height == img2.Height)
                     {
-                        img1_ref = img1.GetPixel(i, j).ToString();
-                        img2_ref = img2.GetPixel(i, j).ToString();
-                        if (img1_ref != img2_ref)
+                        for (int i = 0; i < img1.Width; i++)
                         {
-                            countPixDif++;
-                            flag = false;
-                            break;
+                            for (int j = 0; j < img1.Height; j++)
+                            {
+                                img1_ref = img1.GetPixel(i, j).ToString();
+                                img2_ref = img2.GetPixel(i, j).ToString();
+                                if (img1_ref != img2_ref)
+                                {
+                                    countPixDif++;
+                                    flag = false;
+                                    break;
+                                }
+                                countPixSim++;
+                            }
+                          
                         }
-                        countPixSim++;
-                    }
-                    // progressBar1.Value++;
                 }
-                //  if (flag == false)
-                //   MessageBox.Show("Sorry, Images are not same , " + countPixSim + " wrong pixels found");
-                //    else
-                //    MessageBox.Show(" Images are same , " + countPixSim+ " same pixels found and " + countPixDif + " wrong pixels found");
+                    else
+                        return 0;// no se pueden comparar
+                }
             }
-            else
-                return 0;// no se pueden comparar
-
-         //   this.Dispose();
-            Double percentage;
-
+                Double percentage;
             percentage = (countPixSim / (countPixSim + countPixDif)) * 100;
             return percentage;
         }
         public void readFiles()
         {
-            foreach (var dir in Directory.GetDirectories("c:/imgs"))
+            foreach (var dir in Directory.GetDirectories(PathVIPS))
             {
                 foreach (var file in Directory.GetFiles(dir))
                 {
-                    foreach (var item in Directory.GetFiles("c:/imgWebPhishing"))
+                    foreach (var item in Directory.GetFiles(PathAllSites))
                     {
                         int cant = Convert.ToInt32(similarityImg(item, file));
                         if (cant > 60)
                         {
                             similarity = cant;
-                            cloned = dir.ToString();
+                            cloned = dir.ToString();                   
                         }
+                        System.IO.File.Delete(item);
+
                     }
                 }
             }
         }
-        public void takeScreenshot(System.Windows.Forms.WebBrowser WBScreenShot)
-        {
-            //try
-            //{
-
-            //    Bitmap docImage = new Bitmap(600, 800);
-            //    WBScreenShot.DrawToBitmap(docImage, new Rectangle(WBScreenShot.Location.X, WBScreenShot.Location.Y, WBScreenShot.Width, WBScreenShot.Height));
-            //   // this.picDoc.Image = this.picDoc.getSizedImage(docImage);
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
-
-
-        }
-
-        internal static async Task<string> obtainHTML(HttpResponseMessage respuesta, Uri URL)
-        {
-            string linea, contenido = "";
-            HttpClient cliente = new HttpClient();
-            linea = await respuesta.Content.ReadAsStringAsync();
-            // linea = linea.Replace("<br>", Environment.NewLine);
-            // contenido += linea;
-            return contenido;
-        }
-
     }
 }
