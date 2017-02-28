@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 27, 2017 at 12:23 PM
+-- Generation Time: Feb 27, 2017 at 02:13 PM
 -- Server version: 5.6.33
 -- PHP Version: 5.6.27
 
@@ -30,7 +30,9 @@ CREATE TABLE `vip_sites` (
   `ID` int(11) NOT NULL COMMENT 'ID FROM ALL_SITES TABLE',
   `URL` text NOT NULL,
   `HTML_BODY` text NOT NULL COMMENT 'HTML CONTENT',
-  `LAST_HTML_CHECK` date NOT NULL COMMENT 'LAST TIME HTML CONTENT WAS CHECKED'
+  `LAST_HTML_CHECK` date NOT NULL COMMENT 'LAST TIME HTML CONTENT WAS CHECKED',
+  `SSL_KEY` text NOT NULL COMMENT 'Public SSL Key',
+  `SSL_EXPIRATION_DATE` date NOT NULL COMMENT 'SSL expiration date'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Table with the sites to be checked against. Good sites.';
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

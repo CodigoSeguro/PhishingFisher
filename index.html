@@ -1,35 +1,125 @@
 <html>
     <head>
         <title>Phishing Fisher</title>
+        <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
         <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
         <link href="http://meyerweb.com/eric/tools/css/reset/reset.css" rel="stylesheet">
         <style>
             body{
                 font-family: 'Roboto Condensed', sans-serif;
-                font-size: 16px;
-                background-color: #ccc;
+                background-color: #dedede;
                 color: #333;
             }
-            .main{
+            h1{ font-size: 30px; font-weight: bolder; margin-bottom: 15px; }
+            p{ margin-bottom: 15px; font-size: 16px; }
+            a{ font-weight: bold; }
+            .main,
+            .results{
                 width: 100%;
                 max-width: 600px;
                 margin: 30px auto;
                 background-color: white;
                 padding: 30px;
             }
-            h1{ font-size: 30px; font-weight: bold; margin-bottom: 15px; }
-            p{ margin-bottom: 15px; }
+            .results{ display: none; }
+            .results.loading{ padding: 0px 30px; max-height: 50px; overflow: hidden; }
+            .loading span {
+                display:inline-block;
+                height:100%;
+                width: calc(100% + 60px);
+                margin-left: -30px;
+                -webkit-box-sizing:border-box;
+                -moz-box-sizing:border-box;
+                -ms-box-sizing:border-box;
+                box-sizing:border-box;
+                background-image:
+                    -webkit-linear-gradient(
+                    -45deg,
+                    rgba(51, 51, 51, 1) 25%,
+                    transparent 25%,
+                    transparent 50%,
+                    rgba(51, 51, 51, 1) 50%,
+                    rgba(51, 51, 51, 1) 75%,
+                    transparent 75%,
+                    transparent
+                );
+                background-image:
+                    -moz-linear-gradient(
+                    -45deg,
+                    rgba(51, 51, 51, 1) 25%,
+                    transparent 25%,
+                    transparent 50%,
+                    rgba(51, 51, 51, 1) 50%,
+                    rgba(51, 51, 51, 1) 75%,
+                    transparent 75%,
+                    transparent
+                );
+                background-image:
+                    -ms-linear-gradient(
+                    -45deg,
+                    rgba(51, 51, 51, 1) 25%,
+                    transparent 25%,
+                    transparent 50%,
+                    rgba(51, 51, 51, 1) 50%,
+                    rgba(51, 51, 51, 1) 75%,
+                    transparent 75%,
+                    transparent
+                );
+                background-image:
+                    linear-gradient(
+                    -45deg,
+                    rgba(51, 51, 51, 1) 25%,
+                    transparent 25%,
+                    transparent 50%,
+                    rgba(51, 51, 51, 1) 50%,
+                    rgba(51, 51, 51, 1) 75%,
+                    transparent 75%,
+                    transparent
+                );
+                -webkit-background-size:50px 50px;
+                -moz-background-size:50px 50px;
+                -ms-background-size:50px 50px;
+                background-size:50px 50px;
+                -webkit-animation:move 2s linear infinite;
+                -moz-animation:move 2s linear infinite;
+                -ms-animation:move 2s linear infinite;
+                animation:move 2s linear infinite;
+                overflow: hidden;
+            }
+
+            /*
+            Animate the stripes
+            */	
+            @-webkit-keyframes move{
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px;}
+            }	
+            @-moz-keyframes move{
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px;}
+            }	
+            @-ms-keyframes move{
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px;}
+            }	
+            @keyframes move{
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px;}
+            }	
+            .warning{ background-color: #FF5656; }
+            .approval{ background-color: #64FF56; }
+            .undetermined{ background-color: #FFB656; }
             .main div{ width: 100%; }
-            .searchbar{
+            .searchbar form{
                 display: flex;
             }
-            
             input[type=text]{
                 width: 75%;
                 padding: 5px;
                 height: 50px;
+                font-size: 16px;
             }
-            input[type=button]{
+            input[type=submit]{
                 width: 25%;
                 padding: 5px;
                 background-color: #333;
@@ -38,6 +128,7 @@
                 font-weight: bold;
                 height: 50px;
                 cursor: pointer;
+                font-size: 16px;
             }
             input[type=button]:hover{
                 background-color: white;
@@ -46,19 +137,104 @@
             
             
             
+            
         </style>
     </head>
     <body>
+        <!-- Google API -->
+        <script src="https://apis.google.com/js/platform.js" async defer></script> 
+        
         <div class="main">
             <h1>Phishing Fisher</h1>
             <p>Please introduce a website below to check if it is secure or it is a phishing/fake website</p>
             <div class="searchbar">
-                <input type="text" placeholder="Input the website you want to check" >
-                <input type="button" value="Scan">
+                    <input id="siteSearch" type="text" placeholder="Input the website you want to check" >
+                    <input type="submit" value="Scan" onclick="checkUrl()">
             </div>
-            <div id="resultsWarning" class="results warning"></div>
-            <div id="resultsApproval" class="results approval"></div>
-            <div id="resultsNew"
         </div>
+        <div class="results loading">
+            <span></span>
+        </div>
+        <div class="results warning">
+            <h1>Warning: phishing website</h1>
+            <p>We found one or more causes that signal that this website is a phishing website.</p>
+        </div>
+        <div class="results approval">
+            <h1>Safe website</h1>
+            <p>This website is not in our list of dangerous phishing websites.</p>
+        </div>
+        <div class="results undetermined">
+            <h1>Don't enough data</h1>
+            <p>This website might be new for us or we didn't have time to check it yet. If you want you can <a href="">login</a> and suggest this website for review.</p>
+        </div>
+        
+        
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script>
+            
+            function checkUrl(){
+                
+                $('.results').css('display', 'none');
+                $('.loading').css('display', 'block');
+                
+                    var site = document.getElementById('siteSearch').value;
+                console.log(site);
+                
+                request = $.ajax({
+                    url: "/check_site.php",
+                    type: "post",
+                    data: {url: site}
+                });
+                
+                request.done(function (response, textStatus, jqXHR){
+                    // Log a message to the console
+                    console.log("Hooray, it worked!");
+                });
+
+                // Callback handler that will be called on failure
+                request.fail(function (jqXHR, textStatus, errorThrown){
+                    // Log the error to the console
+                    console.error(
+                        "The following error occurred: "+
+                        textStatus, errorThrown
+                    );
+                });
+                
+                             /* 
+                $.ajax({ url: '/check_site.php',
+                        data: {url: 'paypal.com'},
+                        type: 'get',
+                        success: function(data){
+                            console.log('success');
+                            console.log(data);
+                            displayResult(data);
+                        },
+                        error: function(error){
+                            console.log(error);
+                        } 
+                });
+                */
+                /**
+                request = $.ajax({
+                    url: "/check_site.php",
+                    type: "post",
+                    data: serializedData
+                });
+                **/
+            }
+            
+            function displayResult(data){
+                $('.results').css('display', 'none');
+                $('.loading').css('display', 'block');
+                if(result == 1){
+                    $('.warning').css('display', 'block');
+                }else if(result == 2){
+                    $('.approval').css('display', 'block');
+                }else{  //result 3
+                    $('.undetermined').css('display', 'block');
+                }
+            }
+        </script>
     </body>
 </html>
