@@ -16,3 +16,6 @@ C:\Users\Oscar\Source\Repos\PhishingFisher\PhishingFisher\obj\Debug\PhishingFish
 C:\Users\Oscar\Source\Repos\PhishingFisher\PhishingFisher\obj\Debug\PhishingFisher.PhishingFisher.resources
 C:\Users\Oscar\Source\Repos\PhishingFisher\PhishingFisher\obj\Debug\PhishingFisher.Properties.Resources.resources
 C:\Users\Oscar\Source\Repos\PhishingFisher\PhishingFisher\obj\Debug\PhishingFisher.csproj.GenerateResource.Cache
+C:\Users\Oscar\Source\Repos\PhishingFisher\PhishingFisher\bin\Debug\MySql.Data.dll
+C:\Users\Oscar\Source\Repos\PhishingFisher\PhishingFisher\bin\Debug\Freezer.dll
+C:\Users\Oscar\Source\Repos\PhishingFisher\PhishingFisher\bin\Debug\Freezer.xml

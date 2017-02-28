@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="insertAllSites">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="webURL" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Danger" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Cloned" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="insertAllSitesResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="AuthHeader" type="tns:AuthHeader" />
+      <s:complexType name="AuthHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="insertVIPS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="webURL" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="HTML_BODY" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LAST_HTML_CHECK" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SSL_KEY" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SSL_EXPIRATION_DATE" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="insertVIPSResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="selectAllSites">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="webURL" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="selectAllSitesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="selectAllSitesResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="selectAllNewSites">
+        <s:complexType />
+      </s:element>
+      <s:element name="selectAllNewSitesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="selectAllNewSitesResult" type="tns:ArrayOfCrawlerBait" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCrawlerBait">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CrawlerBait" nillable="true" type="tns:CrawlerBait" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CrawlerBait">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="WebURL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="wasAGoodDay" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="XMLData" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cloned" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="regID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="similarity" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="SSL_KEY" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SSL_EXPIRATION_DATE" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="updateAllSites">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="similarity" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Danger" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Cloned" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateAllSitesResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="selectDangerSite">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="webURL" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="selectDangerSiteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="selectDangerSiteResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="insertAllSitesSoapIn">
+    <wsdl:part name="parameters" element="tns:insertAllSites" />
+  </wsdl:message>
+  <wsdl:message name="insertAllSitesSoapOut">
+    <wsdl:part name="parameters" element="tns:insertAllSitesResponse" />
+  </wsdl:message>
+  <wsdl:message name="insertAllSitesAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="insertVIPSSoapIn">
+    <wsdl:part name="parameters" element="tns:insertVIPS" />
+  </wsdl:message>
+  <wsdl:message name="insertVIPSSoapOut">
+    <wsdl:part name="parameters" element="tns:insertVIPSResponse" />
+  </wsdl:message>
+  <wsdl:message name="insertVIPSAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="selectAllSitesSoapIn">
+    <wsdl:part name="parameters" element="tns:selectAllSites" />
+  </wsdl:message>
+  <wsdl:message name="selectAllSitesSoapOut">
+    <wsdl:part name="parameters" element="tns:selectAllSitesResponse" />
+  </wsdl:message>
+  <wsdl:message name="selectAllSitesAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="selectAllNewSitesSoapIn">
+    <wsdl:part name="parameters" element="tns:selectAllNewSites" />
+  </wsdl:message>
+  <wsdl:message name="selectAllNewSitesSoapOut">
+    <wsdl:part name="parameters" element="tns:selectAllNewSitesResponse" />
+  </wsdl:message>
+  <wsdl:message name="selectAllNewSitesAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="updateAllSitesSoapIn">
+    <wsdl:part name="parameters" element="tns:updateAllSites" />
+  </wsdl:message>
+  <wsdl:message name="updateAllSitesSoapOut">
+    <wsdl:part name="parameters" element="tns:updateAllSitesResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateAllSitesAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="selectDangerSiteSoapIn">
+    <wsdl:part name="parameters" element="tns:selectDangerSite" />
+  </wsdl:message>
+  <wsdl:message name="selectDangerSiteSoapOut">
+    <wsdl:part name="parameters" element="tns:selectDangerSiteResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WebService1Soap">
+    <wsdl:operation name="insertAllSites">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserta en la base de datos cualquier web para su analisis</wsdl:documentation>
+      <wsdl:input message="tns:insertAllSitesSoapIn" />
+      <wsdl:output message="tns:insertAllSitesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="insertVIPS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserta URL's vips, que será las más susceptibles y las que usara el Crawler para analizar</wsdl:documentation>
+      <wsdl:input message="tns:insertVIPSSoapIn" />
+      <wsdl:output message="tns:insertVIPSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="selectAllSites">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Devuelve una coleccion de ID's con esa URL</wsdl:documentation>
+      <wsdl:input message="tns:selectAllSitesSoapIn" />
+      <wsdl:output message="tns:selectAllSitesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="selectAllNewSites">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Devuelve una coleccion con todos los sitios nuevos para su analisis</wsdl:documentation>
+      <wsdl:input message="tns:selectAllNewSitesSoapIn" />
+      <wsdl:output message="tns:selectAllNewSitesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="updateAllSites">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Despues de analizar un sitio actualizamos con su resultado</wsdl:documentation>
+      <wsdl:input message="tns:updateAllSitesSoapIn" />
+      <wsdl:output message="tns:updateAllSitesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="selectDangerSite">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Devuelve el estado de peligro del URL</wsdl:documentation>
+      <wsdl:input message="tns:selectDangerSiteSoapIn" />
+      <wsdl:output message="tns:selectDangerSiteSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WebService1Soap" type="tns:WebService1Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="insertAllSites">
+      <soap:operation soapAction="http://tempuri.org/insertAllSites" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:insertAllSitesAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="insertVIPS">
+      <soap:operation soapAction="http://tempuri.org/insertVIPS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:insertVIPSAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="selectAllSites">
+      <soap:operation soapAction="http://tempuri.org/selectAllSites" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:selectAllSitesAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="selectAllNewSites">
+      <soap:operation soapAction="http://tempuri.org/selectAllNewSites" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:selectAllNewSitesAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateAllSites">
+      <soap:operation soapAction="http://tempuri.org/updateAllSites" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:updateAllSitesAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="selectDangerSite">
+      <soap:operation soapAction="http://tempuri.org/selectDangerSite" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WebService1Soap12" type="tns:WebService1Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="insertAllSites">
+      <soap12:operation soapAction="http://tempuri.org/insertAllSites" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:insertAllSitesAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="insertVIPS">
+      <soap12:operation soapAction="http://tempuri.org/insertVIPS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:insertVIPSAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="selectAllSites">
+      <soap12:operation soapAction="http://tempuri.org/selectAllSites" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:selectAllSitesAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="selectAllNewSites">
+      <soap12:operation soapAction="http://tempuri.org/selectAllNewSites" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:selectAllNewSitesAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateAllSites">
+      <soap12:operation soapAction="http://tempuri.org/updateAllSites" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:updateAllSitesAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="selectDangerSite">
+      <soap12:operation soapAction="http://tempuri.org/selectDangerSite" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WebService1">
+    <wsdl:port name="WebService1Soap" binding="tns:WebService1Soap">
+      <soap:address location="http://codigoseguro.es/WSPhishingFisher/WSPhishingFisher.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WebService1Soap12" binding="tns:WebService1Soap12">
+      <soap12:address location="http://codigoseguro.es/WSPhishingFisher/WSPhishingFisher.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
